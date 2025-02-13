@@ -24,8 +24,11 @@ export default class Level extends Phaser.Scene {
     this.add.existing(platformGroupPrefab);
 
     // playerPrefab
-    const playerPrefab = new PlayerPrefab(this, 93, 121);
+    const playerPrefab = new PlayerPrefab(this, 89, 106);
     this.add.existing(playerPrefab);
+
+    // playerAndPlatformCollider
+    this.physics.add.collider(playerPrefab, platformGroupPrefab.group);
 
     this.events.emit("scene-awake");
   }

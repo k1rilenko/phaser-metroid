@@ -27,11 +27,20 @@
                 "y"
             ],
             "label": "playerPrefab",
-            "x": 93,
-            "y": 121
+            "x": 89,
+            "y": 106
         }
     ],
-    "plainObjects": [],
+    "plainObjects": [
+        {
+            "id": "282c8e9b-0e44-462f-aa07-1da0bcfd5de1",
+            "type": "Collider",
+            "label": "playerAndPlatformCollider",
+            "scope": "LOCAL",
+            "object1": "playerPrefab",
+            "object2": "platformGroupPrefab.group"
+        }
+    ],
     "meta": {
         "app": "Phaser Editor - Scene Editor",
         "url": "https://phaser.io/editor",
