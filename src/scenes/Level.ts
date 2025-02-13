@@ -2,6 +2,7 @@
 
 /* START OF COMPILED CODE */
 
+import PlatformGroupPrefab from "../prefabs/PlatformGroupPrefab";
 /* START-USER-IMPORTS */
 /* END-USER-IMPORTS */
 
@@ -16,6 +17,10 @@ export default class Level extends Phaser.Scene {
   }
 
   editorCreate(): void {
+
+    // platformGroupPrefab
+    const platformGroupPrefab = new PlatformGroupPrefab(this);
+    this.add.existing(platformGroupPrefab);
 
     this.events.emit("scene-awake");
   }
