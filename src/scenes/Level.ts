@@ -17,6 +17,12 @@ export default class Level extends Phaser.Scene {
   }
 
   editorCreate(): void {
+    // leftKey
+    const leftKey = this.input.keyboard!.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
+
+    // rightKey
+    const rightKey = this.input.keyboard!.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
+
     // platformGroupPrefab
     const platformGroupPrefab = new PlatformGroupPrefab(this);
     this.add.existing(platformGroupPrefab);
@@ -29,11 +35,15 @@ export default class Level extends Phaser.Scene {
     this.physics.add.collider(player, platformGroupPrefab.group);
 
     this.player = player;
+    this.leftKey = leftKey;
+    this.rightKey = rightKey;
 
     this.events.emit('scene-awake');
   }
 
   private player!: PlayerPrefab;
+  private leftKey!: Phaser.Input.Keyboard.Key;
+  private rightKey!: Phaser.Input.Keyboard.Key;
 
   /* START-USER-CODE */
 
@@ -48,6 +58,16 @@ export default class Level extends Phaser.Scene {
     const isTouchingDown = this.player.body.touching.down;
     if (isTouchingDown) {
       this.player.setVelocityY(-300);
+    }
+
+    if (!isTouchingDown) {
+      if (this.leftKey.isDown) {
+        this.player.setVelocityX(-150);
+      } else if (this.rightKey.isDown) {
+        this.player.setVelocityX(150);
+      } else {
+        this.player.setVelocityX(0);
+      }
     }
   }
 

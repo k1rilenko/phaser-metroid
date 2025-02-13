@@ -40,6 +40,18 @@
             "scope": "LOCAL",
             "object1": "player",
             "object2": "platformGroupPrefab.group"
+        },
+        {
+            "id": "4875b69d-7c99-4b43-99d1-848bf7e04bf8",
+            "type": "Keyboard.Key",
+            "label": "leftKey",
+            "keyCode": "LEFT"
+        },
+        {
+            "id": "29cd39ac-ace7-4ffb-b0ee-874bffa85536",
+            "type": "Keyboard.Key",
+            "label": "rightKey",
+            "keyCode": "RIGHT"
         }
     ],
     "meta": {
