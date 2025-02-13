@@ -6,8 +6,9 @@
 /* END-USER-IMPORTS */
 
 export default class Level extends Phaser.Scene {
+
   constructor() {
-    super('Level');
+    super("Level");
 
     /* START-USER-CTR-CODE */
     // Write your code here.
@@ -15,7 +16,8 @@ export default class Level extends Phaser.Scene {
   }
 
   editorCreate(): void {
-    this.events.emit('scene-awake');
+
+    this.events.emit("scene-awake");
   }
 
   /* START-USER-CODE */
