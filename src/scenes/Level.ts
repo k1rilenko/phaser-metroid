@@ -2,15 +2,14 @@
 
 /* START OF COMPILED CODE */
 
-import PlatformGroupPrefab from "../prefabs/PlatformGroupPrefab";
-import PlayerPrefab from "../prefabs/PlayerPrefab";
+import PlatformGroupPrefab from '../prefabs/PlatformGroupPrefab';
+import PlayerPrefab from '../prefabs/PlayerPrefab';
 /* START-USER-IMPORTS */
 /* END-USER-IMPORTS */
 
 export default class Level extends Phaser.Scene {
-
   constructor() {
-    super("Level");
+    super('Level');
 
     /* START-USER-CTR-CODE */
     // Write your code here.
@@ -18,20 +17,23 @@ export default class Level extends Phaser.Scene {
   }
 
   editorCreate(): void {
-
     // platformGroupPrefab
     const platformGroupPrefab = new PlatformGroupPrefab(this);
     this.add.existing(platformGroupPrefab);
 
-    // playerPrefab
-    const playerPrefab = new PlayerPrefab(this, 89, 106);
-    this.add.existing(playerPrefab);
+    // player
+    const player = new PlayerPrefab(this, 89, 106);
+    this.add.existing(player);
 
     // playerAndPlatformCollider
-    this.physics.add.collider(playerPrefab, platformGroupPrefab.group);
+    this.physics.add.collider(player, platformGroupPrefab.group);
 
-    this.events.emit("scene-awake");
+    this.player = player;
+
+    this.events.emit('scene-awake');
   }
+
+  private player!: PlayerPrefab;
 
   /* START-USER-CODE */
 
@@ -39,6 +41,13 @@ export default class Level extends Phaser.Scene {
 
   create() {
     this.editorCreate();
+  }
+
+  update() {
+    const isTouchingDown = this.player.body.touching.down;
+    if (isTouchingDown) {
+      this.player.setVelocityY(-300);
+    }
   }
 
   /* END-USER-CODE */

@@ -26,7 +26,8 @@
                 "x",
                 "y"
             ],
-            "label": "playerPrefab",
+            "label": "player",
+            "scope": "CLASS",
             "x": 89,
             "y": 106
         }
@@ -37,7 +38,7 @@
             "type": "Collider",
             "label": "playerAndPlatformCollider",
             "scope": "LOCAL",
-            "object1": "playerPrefab",
+            "object1": "player",
             "object2": "platformGroupPrefab.group"
         }
     ],
