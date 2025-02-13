@@ -18,6 +18,17 @@
             "prefabId": "12d961a4-6abd-41d4-bbaf-149f34d23354",
             "id": "ec77d768-5a34-4ce7-b4e9-1aa80a632003",
             "label": "platformGroupPrefab"
+        },
+        {
+            "prefabId": "5d6470f4-b687-4e64-9128-5913ddb96e22",
+            "id": "d16dfc9f-5f93-4990-b6c8-625a8a1c0356",
+            "unlock": [
+                "x",
+                "y"
+            ],
+            "label": "playerPrefab",
+            "x": 93,
+            "y": 121
         }
     ],
     "plainObjects": [],
