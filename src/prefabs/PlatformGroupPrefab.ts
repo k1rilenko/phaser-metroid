@@ -17,7 +17,7 @@ export default class PlatformGroupPrefab extends Phaser.GameObjects.Layer {
       classType: PlatformPrefab,
     });
 
-    this.group.get(90, 150);
+    this.group.get(120, 150);
     for (let i = 1; i < 5; i++) {
       const x = Phaser.Math.Between(10, 200);
       const y = -130 * i + 150;

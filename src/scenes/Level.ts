@@ -2,8 +2,9 @@
 
 /* START OF COMPILED CODE */
 
-import PlatformGroupPrefab from '../prefabs/PlatformGroupPrefab';
-import PlayerPrefab from '../prefabs/PlayerPrefab';
+import WallPrefab from "../prefabs/WallPrefab";
+import PlayerPrefab from "../prefabs/PlayerPrefab";
+import PlatformGroupPrefab from "../prefabs/PlatformGroupPrefab";
 /* START-USER-IMPORTS */
 
 enum ANIMATION_KEY {
@@ -14,8 +15,9 @@ enum ANIMATION_KEY {
 /* END-USER-IMPORTS */
 
 export default class Level extends Phaser.Scene {
+
   constructor() {
-    super('Level');
+    super("Level");
 
     /* START-USER-CTR-CODE */
     // Write your code here.
@@ -23,33 +25,67 @@ export default class Level extends Phaser.Scene {
   }
 
   editorCreate(): void {
+
     // leftKey
     const leftKey = this.input.keyboard!.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
 
     // rightKey
     const rightKey = this.input.keyboard!.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
 
+    // levelLayer
+    const levelLayer = this.add.layer();
+    levelLayer.blendMode = Phaser.BlendModes.SKIP_CHECK;
+
+    // rightWall
+    const rightWall = new WallPrefab(this, 0, 0);
+    levelLayer.add(rightWall);
+
+    // leftWall
+    const leftWall = new WallPrefab(this, 208, 0);
+    leftWall.flipX = true;
+    leftWall.flipY = false;
+    levelLayer.add(leftWall);
+
+    // playerLayer
+    const playerLayer = this.add.layer();
+    playerLayer.blendMode = Phaser.BlendModes.SKIP_CHECK;
+
+    // player
+    const player = new PlayerPrefab(this, 120, 88);
+    player.setOrigin(0.5, 0.5);
+    playerLayer.add(player);
+
     // platformGroupPrefab
     const platformGroupPrefab = new PlatformGroupPrefab(this);
     this.add.existing(platformGroupPrefab);
 
-    // player
-    const player = new PlayerPrefab(this, 81, 65);
-    this.add.existing(player);
+    // lists
+    const movingLevelTileSprites = [leftWall, rightWall];
+    const walls = [leftWall, rightWall];
 
     // playerAndPlatformCollider
     this.physics.add.collider(player, platformGroupPrefab.group);
 
+    // playerAndWallsCollider
+    this.physics.add.collider(player, walls);
+
+    // leftWall (prefab fields)
+    leftWall.tileOffsetY = -120;
+
     this.player = player;
     this.leftKey = leftKey;
     this.rightKey = rightKey;
+    this.movingLevelTileSprites = movingLevelTileSprites;
+    this.walls = walls;
 
-    this.events.emit('scene-awake');
+    this.events.emit("scene-awake");
   }
 
   private player!: PlayerPrefab;
   private leftKey!: Phaser.Input.Keyboard.Key;
   private rightKey!: Phaser.Input.Keyboard.Key;
+  private movingLevelTileSprites!: WallPrefab[];
+  private walls!: WallPrefab[];
 
   /* START-USER-CODE */
 
@@ -58,6 +94,7 @@ export default class Level extends Phaser.Scene {
   create() {
     this.editorCreate();
     this.cameras.main.startFollow(this.player, false, 0.1, 1, 0.1);
+    this.cameras.main.setDeadzone(this.scale.width);
   }
 
   update() {
@@ -81,6 +118,16 @@ export default class Level extends Phaser.Scene {
         this.player.setVelocityX(0);
       }
     }
+
+    this.movingLevelTileSprites.forEach(tileSprite => {
+      tileSprite.tilePositionY = this.player.y * 0.2 + tileSprite.tileOffsetY;
+    });
+
+    this.walls.forEach(tileSprite => {
+      if (tileSprite.body instanceof Phaser.Physics.Arcade.Body) {
+        tileSprite.body.setOffset(tileSprite.flipX ? 16 : 0, this.cameras.main.worldView.y);
+      }
+    });
   }
 
   /* END-USER-CODE */

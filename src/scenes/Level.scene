@@ -4,6 +4,7 @@
     "settings": {
         "compilerInsertSpaces": true,
         "compilerTabSize": 2,
+        "snapEnabled": true,
         "exportClass": true,
         "autoImport": true,
         "preloadPackFiles": [],
@@ -15,21 +16,72 @@
     },
     "displayList": [
         {
+            "type": "Layer",
+            "id": "6d8da570-71bf-4c58-8f89-3a725a622392",
+            "label": "levelLayer",
+            "blendMode": -1,
+            "list": [
+                {
+                    "prefabId": "6d0310da-c71a-4f33-a43a-6f242b46e1f7",
+                    "id": "60a7ec9d-088d-4df7-b429-a0305909f65e",
+                    "unlock": [
+                        "x",
+                        "y"
+                    ],
+                    "label": "rightWall",
+                    "displayName": "Right Wall",
+                    "x": 0,
+                    "y": 0
+                },
+                {
+                    "prefabId": "6d0310da-c71a-4f33-a43a-6f242b46e1f7",
+                    "id": "68d1fb46-b807-4207-a50b-9ec46e6300ae",
+                    "unlock": [
+                        "x",
+                        "y",
+                        "flipX",
+                        "flipY",
+                        "tileOffsetY"
+                    ],
+                    "label": "leftWall",
+                    "displayName": "Left Wall",
+                    "tileOffsetY": -120,
+                    "x": 208,
+                    "y": 0,
+                    "flipX": true,
+                    "flipY": false
+                }
+            ]
+        },
+        {
+            "type": "Layer",
+            "id": "44b13bbd-13a7-4c19-bcec-2efbc875b37b",
+            "label": "playerLayer",
+            "displayName": "Player Layer",
+            "blendMode": -1,
+            "list": [
+                {
+                    "prefabId": "5d6470f4-b687-4e64-9128-5913ddb96e22",
+                    "id": "d16dfc9f-5f93-4990-b6c8-625a8a1c0356",
+                    "unlock": [
+                        "x",
+                        "y",
+                        "originX",
+                        "originY"
+                    ],
+                    "label": "player",
+                    "scope": "CLASS",
+                    "x": 120,
+                    "y": 88,
+                    "originX": 0.5,
+                    "originY": 0.5
+                }
+            ]
+        },
+        {
             "prefabId": "12d961a4-6abd-41d4-bbaf-149f34d23354",
             "id": "ec77d768-5a34-4ce7-b4e9-1aa80a632003",
             "label": "platformGroupPrefab"
-        },
-        {
-            "prefabId": "5d6470f4-b687-4e64-9128-5913ddb96e22",
-            "id": "d16dfc9f-5f93-4990-b6c8-625a8a1c0356",
-            "unlock": [
-                "x",
-                "y"
-            ],
-            "label": "player",
-            "scope": "CLASS",
-            "x": 81,
-            "y": 65
         }
     ],
     "plainObjects": [
@@ -52,6 +104,14 @@
             "type": "Keyboard.Key",
             "label": "rightKey",
             "keyCode": "RIGHT"
+        },
+        {
+            "id": "d2a25cda-2fdd-4de5-b719-cd2b52380845",
+            "type": "Collider",
+            "label": "playerAndWallsCollider",
+            "scope": "LOCAL",
+            "object1": "player",
+            "object2": "walls"
         }
     ],
     "meta": {
@@ -59,5 +119,23 @@
         "url": "https://phaser.io/editor",
         "contentType": "phasereditor2d.core.scene.SceneContentType",
         "version": 5
-    }
+    },
+    "lists": [
+        {
+            "id": "4551be8a-8470-4011-9b0c-68ace2634832",
+            "label": "movingLevelTileSprites",
+            "objectIds": [
+                "68d1fb46-b807-4207-a50b-9ec46e6300ae",
+                "60a7ec9d-088d-4df7-b429-a0305909f65e"
+            ]
+        },
+        {
+            "id": "3a6efb91-3248-4a00-b4ba-854f062f9316",
+            "label": "walls",
+            "objectIds": [
+                "68d1fb46-b807-4207-a50b-9ec46e6300ae",
+                "60a7ec9d-088d-4df7-b429-a0305909f65e"
+            ]
+        }
+    ]
 }
