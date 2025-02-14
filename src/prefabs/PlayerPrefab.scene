@@ -22,6 +22,8 @@
                 "key": "player",
                 "frame": "player-idle-1.png"
             },
+            "animationPlayMethod": 1,
+            "animationKey": "playerIdle",
             "up": false,
             "body.width": 10,
             "body.height": 42,

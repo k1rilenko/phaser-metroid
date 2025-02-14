@@ -5,6 +5,12 @@
 import PlatformGroupPrefab from '../prefabs/PlatformGroupPrefab';
 import PlayerPrefab from '../prefabs/PlayerPrefab';
 /* START-USER-IMPORTS */
+
+enum ANIMATION_KEY {
+  JUMP = 'playerJump',
+  SPIN = 'playerSpin',
+}
+
 /* END-USER-IMPORTS */
 
 export default class Level extends Phaser.Scene {
@@ -28,7 +34,7 @@ export default class Level extends Phaser.Scene {
     this.add.existing(platformGroupPrefab);
 
     // player
-    const player = new PlayerPrefab(this, 89, 106);
+    const player = new PlayerPrefab(this, 81, 65);
     this.add.existing(player);
 
     // playerAndPlatformCollider
@@ -57,14 +63,20 @@ export default class Level extends Phaser.Scene {
   update() {
     const isTouchingDown = this.player.body.touching.down;
     if (isTouchingDown) {
+      this.player.play(ANIMATION_KEY.JUMP);
+      this.player.once(Phaser.Animations.Events.ANIMATION_COMPLETE_KEY + ANIMATION_KEY.JUMP, () => {
+        this.player.play(ANIMATION_KEY.SPIN);
+      });
       this.player.setVelocityY(-300);
     }
 
     if (!isTouchingDown) {
       if (this.leftKey.isDown) {
         this.player.setVelocityX(-150);
+        this.player.setFlipX(true);
       } else if (this.rightKey.isDown) {
         this.player.setVelocityX(150);
+        this.player.setFlipX(false);
       } else {
         this.player.setVelocityX(0);
       }
