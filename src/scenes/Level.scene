@@ -81,7 +81,8 @@
         {
             "prefabId": "12d961a4-6abd-41d4-bbaf-149f34d23354",
             "id": "ec77d768-5a34-4ce7-b4e9-1aa80a632003",
-            "label": "platformGroupPrefab"
+            "label": "platformGroupPrefab",
+            "scope": "CLASS"
         }
     ],
     "plainObjects": [

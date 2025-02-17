@@ -2,9 +2,9 @@
 
 /* START OF COMPILED CODE */
 
-import WallPrefab from "../prefabs/WallPrefab";
-import PlayerPrefab from "../prefabs/PlayerPrefab";
-import PlatformGroupPrefab from "../prefabs/PlatformGroupPrefab";
+import WallPrefab from '../prefabs/WallPrefab';
+import PlayerPrefab from '../prefabs/PlayerPrefab';
+import PlatformGroupPrefab from '../prefabs/PlatformGroupPrefab';
 /* START-USER-IMPORTS */
 
 enum ANIMATION_KEY {
@@ -15,9 +15,8 @@ enum ANIMATION_KEY {
 /* END-USER-IMPORTS */
 
 export default class Level extends Phaser.Scene {
-
   constructor() {
-    super("Level");
+    super('Level');
 
     /* START-USER-CTR-CODE */
     // Write your code here.
@@ -25,7 +24,6 @@ export default class Level extends Phaser.Scene {
   }
 
   editorCreate(): void {
-
     // leftKey
     const leftKey = this.input.keyboard!.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
 
@@ -73,15 +71,17 @@ export default class Level extends Phaser.Scene {
     leftWall.tileOffsetY = -120;
 
     this.player = player;
+    this.platformGroupPrefab = platformGroupPrefab;
     this.leftKey = leftKey;
     this.rightKey = rightKey;
     this.movingLevelTileSprites = movingLevelTileSprites;
     this.walls = walls;
 
-    this.events.emit("scene-awake");
+    this.events.emit('scene-awake');
   }
 
   private player!: PlayerPrefab;
+  private platformGroupPrefab!: PlatformGroupPrefab;
   private leftKey!: Phaser.Input.Keyboard.Key;
   private rightKey!: Phaser.Input.Keyboard.Key;
   private movingLevelTileSprites!: WallPrefab[];
@@ -104,7 +104,7 @@ export default class Level extends Phaser.Scene {
       this.player.once(Phaser.Animations.Events.ANIMATION_COMPLETE_KEY + ANIMATION_KEY.JUMP, () => {
         this.player.play(ANIMATION_KEY.SPIN);
       });
-      this.player.setVelocityY(-300);
+      this.player.setVelocityY(-340);
     }
 
     if (!isTouchingDown) {
@@ -128,6 +128,7 @@ export default class Level extends Phaser.Scene {
         tileSprite.body.setOffset(tileSprite.flipX ? 16 : 0, this.cameras.main.worldView.y);
       }
     });
+    this.platformGroupPrefab.update();
   }
 
   /* END-USER-CODE */

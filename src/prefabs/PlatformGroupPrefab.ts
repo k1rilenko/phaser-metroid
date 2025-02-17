@@ -4,6 +4,8 @@
 
 /* START-USER-IMPORTS */
 import PlatformPrefab from './PlatformPrefab.ts';
+
+const SCREEN_COUNT_BEFORE_MOVE_PLATFORM_UP = 3;
 /* END-USER-IMPORTS */
 
 export default class PlatformGroupPrefab extends Phaser.GameObjects.Layer {
@@ -23,12 +25,31 @@ export default class PlatformGroupPrefab extends Phaser.GameObjects.Layer {
       const y = -130 * i + 150;
       this.group.get(x, y);
     }
+
+    this.maxPlatformDistance = scene.scale.height * SCREEN_COUNT_BEFORE_MOVE_PLATFORM_UP;
     /* END-USER-CTR-CODE */
   }
 
   /* START-USER-CODE */
   public group: Phaser.GameObjects.Group;
-  // Write your code here.
+  maxPlatformDistance: number;
+
+  update() {
+    const scrollY = this.scene.cameras.main.scrollY;
+    const children = this.group.children;
+    let childrenToMoveYOffset = 0;
+
+    children.entries
+      // @ts-ignore
+      .filter(({ y }) => y >= scrollY + this.maxPlatformDistance)
+      .forEach(child => {
+        // @ts-ignore
+        child.x = Phaser.Math.Between(10, 200);
+        childrenToMoveYOffset += Phaser.Math.Between(10, 40);
+        // @ts-ignore
+        child.y = scrollY - childrenToMoveYOffset;
+      });
+  }
 
   /* END-USER-CODE */
 }
